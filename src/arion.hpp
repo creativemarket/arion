@@ -47,76 +47,71 @@
 // Exiv2
 #include <exiv2/exiv2.hpp>
 
+// Lib Raw to handle raw files
+#include "libraw/libraw.h"
+
 // Local
 #include "models/operation.hpp"
 #include "carion.h"
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-class Arion
-{
-  public:
+class Arion {
+ public:
 
-    Arion();
-    ~Arion();
-    
-    bool setup(const std::string& inputJson);
+  Arion();
+  ~Arion();
 
-    void setSourceImage(cv::Mat& sourceImage);
-    cv::Mat& getSourceImage();
-    bool setInputUrl(const std::string& inputUrl);
-    bool setOutputUrl(const std::string& outputUrl);
-    void setIgnoreMetadata(bool ignoreMetadata);
-    void setCorrectOrientation(bool correctOrientation);
-    void addResizeOperation(struct ArionResizeOptions options);
-    
-    bool run();
-    std::string getJson() const;
-    
-    bool getJpeg(unsigned operationIndex, std::vector<unsigned char>& data);
-    bool getPNG(unsigned operationIndex, std::vector<unsigned char>& data);
-    
-  private:
+  void setSourceImage(cv::Mat &sourceImage);
+  cv::Mat &getSourceImage();
 
-    //--------------------
-    //      Helpers
-    //--------------------
-    bool handleOrientation(Exiv2::ExifData& exifData, cv::Mat& image);
-    bool parseOperations(const boost::property_tree::ptree& pt);
-    void extractImageData(const std::string& imageFilePath);
-    void overrideMeta(const boost::property_tree::ptree& pt);
-    void constructErrorJson();
-    void parseInputUrl(std::string inputUrl);
-    
-    //--------------------
-    //      Inputs
-    //--------------------
-    boost::property_tree::ptree mInputTree;
-    std::string mInputFile;
-    bool mCorrectOrientation;
-    bool mIgnoreMetadata;
-    cv::Mat mSourceImage;
-    
-    typedef boost::ptr_vector<Operation> Operations;
-    
-    Operations mOperations;
-    
-    //--------------------
-    //     Image info
-    //--------------------
-    Exiv2::ExifData* mpExifData;
-    Exiv2::XmpData* mpXmpData;
-    Exiv2::IptcData* mpIptcData;
-    Exiv2::Image::AutoPtr mExivImage;
+  bool setInputUrl(const std::string &inputUrl);
 
-    // The following describe the result of the operations
-    bool mResult;
-    std::string mErrorMessage;
-    unsigned mTotalOperations;
-    unsigned mFailedOperations;
-    
-    // This contains the resulting variables in JSON
-    std::string mJson;
+  bool setOutputUrl(const std::string &outputUrl);
+  void setDecodeImage(bool decodeImage);
+
+  void addResizeOperation(struct ArionResizeOptions options);
+
+  bool run();
+
+  bool getJpeg(unsigned operationIndex, std::vector<unsigned char> &data);
+  bool getPNG(unsigned operationIndex, std::vector<unsigned char> &data);
+
+ private:
+
+  //--------------------
+  //      Helpers
+  //--------------------
+
+  bool parseOperations(const boost::property_tree::ptree &pt);
+
+  // KEEP
+  void extractImageData(const std::string &imageFilePath);
+
+  // KEEP
+  void parseInputUrl(std::string inputUrl);
+
+  //--------------------
+  //      Inputs
+  //--------------------
+  std::string mInputFile;
+  cv::Mat mSourceImage;
+
+  typedef boost::ptr_vector <Operation> Operations;
+
+  Operations mOperations;
+
+  //--------------------
+  //     Image info
+  //--------------------
+  Exiv2::Image::AutoPtr mExivImage;
+
+  // The following describe the result of the operations
+  bool mResult;
+  bool mDecodeImage;
+  std::string mErrorMessage;
+  unsigned mTotalOperations;
+  unsigned mFailedOperations;
 
 };
 
