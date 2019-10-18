@@ -76,6 +76,8 @@ class Arion {
 
   bool getJpeg(unsigned operationIndex, std::vector<unsigned char> &data);
   bool getPNG(unsigned operationIndex, std::vector<unsigned char> &data);
+  bool getWebP(unsigned operationIndex, std::vector<unsigned char> &data);
+  bool getJpeg2k(unsigned operationIndex, std::vector<unsigned char> &data);
 
  private:
 

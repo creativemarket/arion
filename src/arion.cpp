@@ -432,3 +432,45 @@ bool Arion::getPNG(unsigned operationIndex, std::vector<unsigned char>& data) {
 
    return result;
 }
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+bool Arion::getWebP(unsigned operationIndex, std::vector<unsigned char>& data) {
+
+  if (operationIndex >= mOperations.size()) {
+    mErrorMessage = "Invalid operation to WebP encode";
+
+     return false;
+  }
+
+   Operation& operation = mOperations.at(operationIndex);
+
+   bool result = operation.getWebP(data);
+
+  if (!result) {
+    mErrorMessage = "Could not encode WebP";
+  }
+
+   return result;
+}
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+bool Arion::getJpeg2k(unsigned operationIndex, std::vector<unsigned char>& data) {
+
+  if (operationIndex >= mOperations.size()) {
+    mErrorMessage = "Invalid operation to JPEG 2000 encode";
+
+     return false;
+  }
+
+   Operation& operation = mOperations.at(operationIndex);
+
+   bool result = operation.getJpeg2k(data);
+
+  if (!result) {
+    mErrorMessage = "Could not encode JPEG 2000";
+  }
+
+   return result;
+}

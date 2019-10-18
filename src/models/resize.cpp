@@ -286,6 +286,20 @@ bool Resize::getPNG(std::vector<unsigned char> &data) {
   return imencode(".png", mImageResizedFinal, data, compression_params);
 }
 
+bool Resize::getWebP(std::vector<unsigned char> &data) {
+  vector<int> compression_params;
+  compression_params.push_back(IMWRITE_WEBP_QUALITY);
+  compression_params.push_back(mQuality);
+
+  return imencode(".webp", mImageResizedFinal, data, compression_params);
+}
+
+bool Resize::getJpeg2k(std::vector<unsigned char> &data) {
+  vector<int> compression_params;
+
+  return imencode(".jp2", mImageResizedFinal, data, compression_params);
+}
+
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 void Resize::readType(const ptree &params) {
