@@ -76,7 +76,6 @@ TARGET_LINK_LIBRARIES( carion ${Boost_LIBRARIES} ${OpenCV_LIBS} ${LibExiv2_LIBRA
 
 install(TARGETS carion DESTINATION lib)
 install(FILES carion.h DESTINATION include)
-install(PROGRAMS ../arion DESTINATION bin)
 
 #uncomment this to see all cmake variables
 #get_cmake_property(_variableNames VARIABLES)
