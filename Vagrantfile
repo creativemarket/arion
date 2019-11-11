@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
-    sudo apt-get install -y cmake wget unzip libexpat1-dev zlib1g-dev libssl-dev build-essential devscripts libboost-dev libboost-program-options-dev libboost-filesystem-dev libboost-system-dev
+    sudo apt-get install -y cmake wget unzip libexpat1-dev zlib1g-dev libssl-dev libexiv2-dev build-essential devscripts libboost-dev libboost-program-options-dev libboost-filesystem-dev libboost-system-dev libopencv-dev
 
     # Install opencv
     #wget https://github.com/Itseez/opencv/archive/3.0.0.zip
