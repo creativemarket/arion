@@ -46,11 +46,6 @@
 // OpenCV
 #include <opencv2/core/core.hpp>
 
-// Local Third party
-#include "../thirdparty/rapidjson/writer.h"
-#include "../thirdparty/rapidjson/prettywriter.h"
-#include "../thirdparty/rapidjson/stringbuffer.h"
-
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 class Operation : boost::noncopyable {
