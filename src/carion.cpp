@@ -11,8 +11,8 @@ struct ArionResizeResult ArionResize(struct ArionInputOptions inputOptions,
                                      struct ArionResizeOptions resizeOptions) {
   struct ArionResizeResult result;
 
-  // Currently only two output formats are supported, JPEG (0) and PNG (1)
-  if (inputOptions.outputFormat > 1) {
+  // Unsupported format requested
+  if (inputOptions.outputFormat > FORMAT_MAX) {
     result.outputData = 0;
     result.outputSize = 0;
     result.returnCode = -1;
@@ -44,31 +44,31 @@ struct ArionResizeResult ArionResize(struct ArionInputOptions inputOptions,
     return result;
   }
 
-  if (inputOptions.outputFormat == 0) {
-    if (!arion.getJpeg(operation, buffer)) { // JPEG
+  if (inputOptions.outputFormat == FORMAT_JPEG) {
+    if (!arion.getJpeg(operation, buffer)) {
       result.outputData = 0;
       result.outputSize = 0;
       result.returnCode = -1;
       return result;
     }
-  } else if (inputOptions.outputFormat == 1) { // PNG
-    if (!arion.getPNG(operation, buffer)) { // PNG
-      result.outputData = 0;
-      result.outputSize = 0;
-      result.returnCode = -1;
-      return result;
-    }
-  }
-  } else if (inputOptions.outputFormat == 2) { // JP2
-    if (!arion.getJpeg2k(operation, buffer)) { // JP2
+  } else if (inputOptions.outputFormat == FORMAT_PNG) {
+    if (!arion.getPNG(operation, buffer)) {
       result.outputData = 0;
       result.outputSize = 0;
       result.returnCode = -1;
       return result;
     }
   }
-  } else { // WEBP
-    if (!arion.getWebP(operation, buffer)) { // WEBP
+  } else if (inputOptions.outputFormat == FORMAT_JP2) {
+    if (!arion.getJpeg2k(operation, buffer)) {
+      result.outputData = 0;
+      result.outputSize = 0;
+      result.returnCode = -1;
+      return result;
+    }
+  }
+  } else if (inputOptions.outputFormat == FORMAT_WEBP) {
+    if (!arion.getWebP(operation, buffer)) {
       result.outputData = 0;
       result.outputSize = 0;
       result.returnCode = -1;

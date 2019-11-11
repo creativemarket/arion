@@ -5,6 +5,12 @@
 extern "C" {
 #endif
 
+#define FORMAT_JPEG 0
+#define FORMAT_PNG 1
+#define FORMAT_JP2 2
+#define FORMAT_WEBP 3
+#define FORMAT_MAX 4
+
 struct ArionInputOptions {
   // If set to 0 the image orientation will not be corrected
   // (based on the EXIF orientation flag)
@@ -16,7 +22,7 @@ struct ArionInputOptions {
   // If an output URL is provided the image will be saved there
   char *outputUrl;
 
-  // The desired output format. 0 = JPEG, 1 = PNG
+  // The desired output format - one of the FORMAT_* defines
   unsigned outputFormat;
 };
 
