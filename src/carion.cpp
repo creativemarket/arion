@@ -51,8 +51,24 @@ struct ArionResizeResult ArionResize(struct ArionInputOptions inputOptions,
       result.returnCode = -1;
       return result;
     }
-  } else { // PNG
-    if (!arion.getPNG(operation, buffer)) { // JPEG
+  } else if (inputOptions.outputFormat == 1) { // PNG
+    if (!arion.getPNG(operation, buffer)) { // PNG
+      result.outputData = 0;
+      result.outputSize = 0;
+      result.returnCode = -1;
+      return result;
+    }
+  }
+  } else if (inputOptions.outputFormat == 2) { // JP2
+    if (!arion.getJpeg2k(operation, buffer)) { // JP2
+      result.outputData = 0;
+      result.outputSize = 0;
+      result.returnCode = -1;
+      return result;
+    }
+  }
+  } else { // WEBP
+    if (!arion.getWebP(operation, buffer)) { // WEBP
       result.outputData = 0;
       result.outputSize = 0;
       result.returnCode = -1;
