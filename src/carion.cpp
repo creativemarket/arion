@@ -58,7 +58,6 @@ struct ArionResizeResult ArionResize(struct ArionInputOptions inputOptions,
       result.returnCode = -1;
       return result;
     }
-  }
   } else if (inputOptions.outputFormat == FORMAT_JP2) {
     if (!arion.getJpeg2k(operation, buffer)) {
       result.outputData = 0;
@@ -66,7 +65,6 @@ struct ArionResizeResult ArionResize(struct ArionInputOptions inputOptions,
       result.returnCode = -1;
       return result;
     }
-  }
   } else if (inputOptions.outputFormat == FORMAT_WEBP) {
     if (!arion.getWebP(operation, buffer)) {
       result.outputData = 0;
