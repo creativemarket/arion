@@ -48,11 +48,6 @@
 // Exiv2
 #include <exiv2/exiv2.hpp>
 
-// Local Third party
-#include "../thirdparty/rapidjson/writer.h"
-#include "../thirdparty/rapidjson/prettywriter.h"
-#include "../thirdparty/rapidjson/stringbuffer.h"
-
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 namespace Utils {
@@ -170,34 +165,8 @@ static void iptcDebug(Exiv2::IptcData &iptcData) {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 static void exitWithError(std::string errorMessage) {
-  rapidjson::StringBuffer s;
-
-#ifdef JSON_PRETTY_OUTPUT
-  rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(s);
-#else
-  rapidjson::Writer<rapidjson::StringBuffer> writer(s);
-#endif
-
-  writer.StartObject();
-
-  // Result
-  writer.String("result");
-  writer.Bool(false);
-
-  // Error message
-  writer.String("error_message");
-  writer.String(errorMessage);
-
-  // Assume we weren't able to read any operations
-  writer.String("total_operations");
-  writer.Uint(0);
-
-  writer.String("failed_operations");
-  writer.Uint(0);
-
-  writer.EndObject();
-
-  std::cout << s.GetString() << std::endl;
+  std::cout << "{ \"result\": false, \"total_operations\": 0, \"failed_operations\": 0,";
+  std::cout << "\"error_message\": \"" << errorMessage << "\" }" << std::endl;
 
   exit(-1);
 }
