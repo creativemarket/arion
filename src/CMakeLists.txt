@@ -18,7 +18,6 @@ if (NOT ARION_ENABLE_SHARED)
 
 endif()
 
-
 FIND_PACKAGE( Boost 1.46 COMPONENTS program_options timer filesystem system REQUIRED )
 FIND_PACKAGE( OpenCV REQUIRED )
 FIND_PACKAGE( Threads REQUIRED )
@@ -42,10 +41,6 @@ MESSAGE( STATUS "LibRaw_VERSION:       ${LibRaw_VERSION_STRING}"  )
 MESSAGE( STATUS "LibRaw_LIBRARIES:     ${LibRaw_LIBRARIES}"  )
 MESSAGE( STATUS "OpenCV_LIBS:          ${OpenCV_LIBS}"  )
 MESSAGE( STATUS "Boost_LIBRARIES:      ${Boost_LIBRARIES}"  )
-
-
-ADD_DEFINITIONS( -DRAPIDJSON_HAS_STDSTRING=1 )
-ADD_DEFINITIONS( -DJSON_PRETTY_OUTPUT )
 
 # Uncomment this for additional console output (warning: may invalidate JSON output)
 #ADD_DEFINITIONS( -DDEBUG=1 )
@@ -76,7 +71,6 @@ TARGET_LINK_LIBRARIES( carion ${Boost_LIBRARIES} ${OpenCV_LIBS} ${LibExiv2_LIBRA
 
 install(TARGETS carion DESTINATION lib)
 install(FILES carion.h DESTINATION include)
-install(PROGRAMS ../arion DESTINATION bin)
 
 #uncomment this to see all cmake variables
 #get_cmake_property(_variableNames VARIABLES)
