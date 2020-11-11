@@ -314,7 +314,9 @@ void Arion::extractImageData(const string &imageFilePath) {
       // Now actually decode the bytes
       cv::InputArray buf(buffer);
 
-      mSourceImage = cv::imdecode(buf, cv::IMREAD_COLOR);
+      // decode image data without applying any exif orientation conversion and maintaining any alpha channel
+      // cv::IMREAD_COLOR would otherwise drop alpha channel & change orientation if specified by exif data
+      mSourceImage = cv::imdecode(buf, cv::IMREAD_UNCHANGED);
     }
 
     if (mSourceImage.empty()) {
