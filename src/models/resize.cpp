@@ -560,39 +560,48 @@ void Resize::computeSizeFill() {
   }
 
   switch (mGravity) {
-    case ResizeGravitytCenter:cropX = (sourceWidth - cropWidth) / 2;
+    case ResizeGravitytCenter:
+      cropX = (sourceWidth - cropWidth) / 2;
       cropY = (sourceHeight - cropHeight) / 2;
       break;
 
-    case ResizeGravityNorth: cropX = (sourceWidth - cropWidth) / 2;
+    case ResizeGravityNorth:
+      cropX = (sourceWidth - cropWidth) / 2;
       cropY = 0;
       break;
 
-    case ResizeGravityNorthWest: cropX = 0;
+    case ResizeGravityNorthWest:
+      cropX = 0;
       cropY = 0;
       break;
 
-    case ResizeGravityNorthEast: cropX = (sourceWidth - cropWidth);
+    case ResizeGravityNorthEast:
+      cropX = (sourceWidth - cropWidth);
       cropY = 0;
       break;
 
-    case ResizeGravitySouth: cropX = (sourceWidth - cropWidth) / 2;
+    case ResizeGravitySouth:
+      cropX = (sourceWidth - cropWidth) / 2;
       cropY = (sourceHeight - cropHeight);
       break;
 
-    case ResizeGravitySouthWest: cropX = 0;
+    case ResizeGravitySouthWest:
+      cropX = 0;
       cropY = (sourceHeight - cropHeight);
       break;
 
-    case ResizeGravitySouthEast: cropX = (sourceWidth - cropWidth);
+    case ResizeGravitySouthEast:
+      cropX = (sourceWidth - cropWidth);
       cropY = (sourceHeight - cropHeight);
       break;
 
-    case ResizeGravityWest: cropX = 0;
+    case ResizeGravityWest:
+      cropX = 0;
       cropY = (sourceHeight - cropHeight) / 2;
       break;
 
-    case ResizeGravityEast: cropX = (sourceWidth - cropWidth);
+    case ResizeGravityEast:
+      cropX = (sourceWidth - cropWidth);
       cropY = (sourceHeight - cropHeight) / 2;
       break;
 
