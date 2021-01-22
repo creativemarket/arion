@@ -317,6 +317,11 @@ void Arion::extractImageData(const string &imageFilePath) {
       // decode image data without applying any exif orientation conversion and maintaining any alpha channel
       // cv::IMREAD_COLOR would otherwise drop alpha channel & change orientation if specified by exif data
       mSourceImage = cv::imdecode(buf, cv::IMREAD_UNCHANGED);
+
+      // down-sample 16-bit images to 8-bit
+      if (mSourceImage.depth() > 1) {
+        mSourceImage.convertTo(mSourceImage, CV_8U, 1.0/256.0);
+      }
     }
 
     if (mSourceImage.empty()) {
