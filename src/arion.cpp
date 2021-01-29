@@ -481,3 +481,21 @@ bool Arion::getJpeg2k(unsigned operationIndex, std::vector<unsigned char>& data)
 
    return result;
 }
+
+bool Arion::getAvif(unsigned operationIndex, std::vector<unsigned char>& data) {
+  if (operationIndex >= mOperations.size()) {
+    mErrorMessage = "Invalid operation to AVIF encode";
+
+     return false;
+  }
+
+   Operation& operation = mOperations.at(operationIndex);
+
+   bool result = operation.getAvif(data);
+
+  if (!result) {
+    mErrorMessage = "Could not encode AVIF";
+  }
+
+   return result;
+}

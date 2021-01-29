@@ -72,6 +72,13 @@ struct ArionResizeResult ArionResize(struct ArionInputOptions inputOptions,
       result.returnCode = -1;
       return result;
     }
+  } else if (inputOptions.outputFormat == FORMAT_AVIF) {
+    if (!arion.getAvif(operation, buffer)) {
+      result.outputData = 0;
+      result.outputSize = 0;
+      result.returnCode = -1;
+      return result;
+    }
   }
 
   result.outputSize = buffer.size();

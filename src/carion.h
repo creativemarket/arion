@@ -9,7 +9,8 @@ extern "C" {
 #define FORMAT_PNG 1
 #define FORMAT_JP2 2
 #define FORMAT_WEBP 3
-#define FORMAT_MAX 4
+#define FORMAT_AVIF 4
+#define FORMAT_MAX 5
 
 struct ArionInputOptions {
   // If set to 0 the image orientation will not be corrected

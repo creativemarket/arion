@@ -51,6 +51,8 @@
 // Exiv2
 #include <exiv2/exiv2.hpp>
 
+#include <avif/avif.h>
+
 using boost::property_tree::ptree;
 using namespace cv;
 using namespace std;
@@ -298,6 +300,60 @@ bool Resize::getJpeg2k(std::vector<unsigned char> &data) {
   vector<int> compression_params;
 
   return imencode(".jp2", mImageResizedFinal, data, compression_params);
+}
+
+bool Resize::getAvif(std::vector<unsigned char> &data) {
+  avifEncoder * encoder = NULL;
+  avifRWData avifOutput = AVIF_DATA_EMPTY;
+  avifRGBImage rgb;
+  memset(&rgb, 0, sizeof(rgb));
+
+  // these values dictate what goes into the final AVIF - width, height, depth
+  avifImage * image = avifImageCreate(mImageResizedFinal.cols, mImageResizedFinal.rows, 8, AVIF_PIXEL_FORMAT_YUV444);
+
+  avifRGBImageSetDefaults(&rgb, image);
+  if (mImageResizedFinal.channels() > 3) {
+    rgb.format = AVIF_RGB_FORMAT_RGBA;
+  } else {
+    rgb.format = AVIF_RGB_FORMAT_RGB;
+  }
+//  avifRGBImageAllocatePixels(&rgb);
+  rgb.pixels = mImageResizedFinal.ptr();
+  rgb.rowBytes = mImageResizedFinal.step;
+
+  // // [TODO] Fill your RGB(A) data here
+  // memcpy(result.outputData, &buffer[0], buffer.size());
+//  memset(rgb.pixels, 255, rgb.rowBytes * image->height);
+
+  avifResult convertResult = avifImageRGBToYUV(image, &rgb);
+  if (convertResult != AVIF_RESULT_OK) {
+    return false;
+  }
+
+  encoder = avifEncoderCreate();
+
+  avifResult addImageResult = avifEncoderAddImage(encoder, image, 1, AVIF_ADD_IMAGE_FLAG_SINGLE);
+  if (addImageResult != AVIF_RESULT_OK) {
+    return false;
+  }
+
+ avifResult finishResult = avifEncoderFinish(encoder, &avifOutput);
+  if (finishResult != AVIF_RESULT_OK) {
+    return false;
+  }
+
+  // [TODO] copy avifOutput.size bytes from avifOutput.data to data
+
+  if (image) {
+    avifImageDestroy(image);
+  }
+  if (encoder) {
+      avifEncoderDestroy(encoder);
+  }
+  avifRWDataFree(&avifOutput);
+  avifRGBImageFreePixels(&rgb); // only if avifRGBImageAllocatePixels() was called
+
+  return true;
 }
 
 //------------------------------------------------------------------------------

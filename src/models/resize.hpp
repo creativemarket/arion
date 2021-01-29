@@ -98,6 +98,7 @@ class Resize : public Operation {
   virtual bool getPNG(std::vector<unsigned char> &data);
   virtual bool getWebP(std::vector<unsigned char> &data);
   virtual bool getJpeg2k(std::vector<unsigned char> &data);
+  virtual bool getAvif(std::vector<unsigned char> &data);
 
   void setType(const std::string &type);
   void setHeight(unsigned height);

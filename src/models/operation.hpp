@@ -62,6 +62,7 @@ class Operation : boost::noncopyable {
   virtual bool getPNG(std::vector<unsigned char> &data) = 0;
   virtual bool getWebP(std::vector<unsigned char> &data) = 0;
   virtual bool getJpeg2k(std::vector<unsigned char> &data) = 0;
+  virtual bool getAvif(std::vector<unsigned char> &data) = 0;
 
   void setImage(cv::Mat &image);
 
