@@ -312,10 +312,11 @@ bool Resize::getAvif(std::vector<unsigned char> &data) {
   avifImage * image = avifImageCreate(mImageResizedFinal.cols, mImageResizedFinal.rows, 8, AVIF_PIXEL_FORMAT_YUV444);
 
   avifRGBImageSetDefaults(&rgb, image);
+  // OpenCV's imdecode defaults to BGR order
   if (mImageResizedFinal.channels() > 3) {
-    rgb.format = AVIF_RGB_FORMAT_RGBA;
+    rgb.format = AVIF_RGB_FORMAT_BGRA;
   } else {
-    rgb.format = AVIF_RGB_FORMAT_RGB;
+    rgb.format = AVIF_RGB_FORMAT_BGR;
   }
 //  avifRGBImageAllocatePixels(&rgb);
   rgb.pixels = mImageResizedFinal.ptr();
@@ -342,7 +343,8 @@ bool Resize::getAvif(std::vector<unsigned char> &data) {
     return false;
   }
 
-  // [TODO] copy avifOutput.size bytes from avifOutput.data to data
+  data.resize(avifOutput.size);
+  std::copy(avifOutput.data, avifOutput.data + avifOutput.size, &data[0]);
 
   if (image) {
     avifImageDestroy(image);
@@ -351,7 +353,8 @@ bool Resize::getAvif(std::vector<unsigned char> &data) {
       avifEncoderDestroy(encoder);
   }
   avifRWDataFree(&avifOutput);
-  avifRGBImageFreePixels(&rgb); // only if avifRGBImageAllocatePixels() was called
+  // only if avifRGBImageAllocatePixels() was called
+  // avifRGBImageFreePixels(&rgb);
 
   return true;
 }
